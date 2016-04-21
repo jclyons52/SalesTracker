@@ -24,7 +24,7 @@ class TestAppTests: XCTestCase {
     func testInitialization() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let sale = Sale(purchaseCost: 11.0, saleCost: 22.0, productCare: true )
+        let sale = Sale(purchaseCost: 11.0, saleCost: 22.0, productCare: true )!
         
         XCTAssert(sale.purchaseCost == 11)
         XCTAssert(sale.saleCost == 22)
@@ -32,7 +32,7 @@ class TestAppTests: XCTestCase {
     }
     
     func testProfitComputedProperty() {
-        let sale = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true)
+        let sale = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true)!
         
         XCTAssert(sale.profit == 14)
     }

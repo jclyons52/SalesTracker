@@ -10,9 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var salesTally: [Double] = []
-    var storeCostTally: [Double] = []
-    var productCareTally: [Bool] = []
+    let saleCollection = SaleCollection()
     @IBOutlet weak var storeCost: UITextField!
     @IBOutlet weak var saleCost: UITextField!
     @IBOutlet weak var commissionRate: UITextField!
@@ -22,16 +20,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var productCareRatio: UILabel!
     @IBOutlet weak var totalCommission: UILabel!
     @IBAction func save(sender: AnyObject) {
-        salesTally += saleCost.text!.isEmpty ? [0.0] : [Double(saleCost.text!)!]
-        storeCostTally += storeCost.text!.isEmpty ? [0.0] : [Double(storeCost.text!)!]
-        productCareTally += [productCare.on]
-        let totalProfit = salesTally.reduce(0, combine: +) - storeCostTally.reduce(0, combine: +)
-        profit.text = String(totalProfit)
-        totalSales.text = String(storeCostTally.reduce(0, combine: +))
-        print(productCareTally.filter({ $0 }).count, productCareTally.count, productCareTally)
-        productCareRatio.text = String(Double(productCareTally.filter({ $0 }).count) / Double(productCareTally.count))
-        let commission = commissionRate.text!.isEmpty ? 0.0 : Double(commissionRate.text!)!
-        totalCommission.text =  String(totalProfit * (commission / 100))
+        addSale()
+        
+        profit.text = String(saleCollection.totalProfit)
+        totalSales.text = String(saleCollection.totalSales)
+
+        productCareRatio.text = String(saleCollection.productCareRatio)
+        let commission = commissionRate.text!.isEmpty ? 0 : Int(commissionRate.text!)!
+        totalCommission.text =  String(saleCollection.commission(commission))
         
     }
     override func viewDidLoad() {
@@ -42,6 +38,17 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func addSale() {
+        let salesTally = Double(saleCost.text!)
+        let storeCostTally = Double(storeCost.text!)
+        let productCareTally = productCare.on
+        let sale = Sale(purchaseCost: storeCostTally!, saleCost: salesTally!, productCare: productCareTally)!
+        self.saleCollection.addSale(sale)
+        
+        saleCost.text = nil
+        storeCost.text = nil
     }
 
 

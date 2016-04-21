@@ -11,7 +11,7 @@ import Foundation
 class SaleCollection {
     
     var sales: [Sale] = []
-    
+
     var totalSales: Double {
         get {
             return self.sales
@@ -34,6 +34,15 @@ class SaleCollection {
         }
     }
     
+    var productCareRatio: Double {
+        get {
+            let productCare = self.sales.map({ return $0.productCare })
+            let withProductCare = productCare.filter({ $0 }).count
+            
+            return Double(withProductCare) / Double(productCare.count)
+        }
+    }
+    
     func addSale(sale: Sale) {
         return self.sales.append(sale)
     }
@@ -42,5 +51,19 @@ class SaleCollection {
         let x = self.totalProfit * Double(percentage) / 100
         
         return Double(round(10*x)/10)
+    }
+    
+    func saveSales() -> Bool {
+        return NSKeyedArchiver.archiveRootObject(self.sales, toFile: Sale.ArchiveURL.path!)
+    }
+    
+    func loadSales() -> Bool {
+        let sales = NSKeyedUnarchiver.unarchiveObjectWithFile(Sale.ArchiveURL.path!) as? [Sale]
+        if ((sales) != nil) {
+            self.sales = sales!
+            return true
+        }
+        self.sales = []
+        return false
     }
 }

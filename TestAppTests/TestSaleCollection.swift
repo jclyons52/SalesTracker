@@ -54,9 +54,24 @@ class TestSaleCollection: XCTestCase {
         
     }
     
+    func testGetProductCareRatio()
+    {
+        let saleCollection = getSaleCollection()
+        XCTAssert(saleCollection.productCareRatio == 0.5)
+    }
+    
+    func testSaveAndLoad() {
+        let saleCollection = getSaleCollection()
+        saleCollection.saveSales();
+        
+        let newCollection = SaleCollection()
+        newCollection.loadSales()
+        XCTAssert(newCollection.sales.count == 2)
+    }
+    
     func getSaleCollection() -> SaleCollection {
-        let sale1 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true)
-        let sale2 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true)
+        let sale1 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true)!
+        let sale2 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: false)!
         let saleCollection = SaleCollection()
         saleCollection.addSale(sale1)
         saleCollection.addSale(sale2)
