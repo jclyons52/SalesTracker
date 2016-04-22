@@ -26,13 +26,19 @@ class Sale: NSObject, NSCoding {
         static let purchaseCostKey = "purchaseCost"
         static let saleCostKey = "saleCost"
         static let productCareKey = "productCare"
+        static let dateKey = "date"
     }
     
-    init?(purchaseCost: Double, saleCost: Double, productCare: Bool) {
+    init?(purchaseCost: Double, saleCost: Double, productCare: Bool, date: NSDate? = nil) {
         self.purchaseCost = purchaseCost
         self.saleCost = saleCost
         self.productCare = productCare
-        self.date = NSDate()
+        if (date == nil) {
+            self.date = NSDate()
+        } else {
+            self.date = date!
+        }
+        
         
         super.init()
     }
@@ -47,17 +53,19 @@ class Sale: NSObject, NSCoding {
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeDouble(purchaseCost, forKey: PropertyKey.purchaseCostKey)
-        aCoder.encodeDouble(saleCost, forKey: String(PropertyKey.saleCostKey))
-        aCoder.encodeBool(productCare, forKey: String(PropertyKey.productCareKey))
+        aCoder.encodeDouble(saleCost, forKey: PropertyKey.saleCostKey)
+        aCoder.encodeBool(productCare, forKey: PropertyKey.productCareKey)
+        aCoder.encodeObject(date, forKey: PropertyKey.dateKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let purchaseCost = aDecoder.decodeDoubleForKey(PropertyKey.purchaseCostKey)
         let saleCost = aDecoder.decodeDoubleForKey(PropertyKey.saleCostKey)
         let productCare = aDecoder.decodeBoolForKey(PropertyKey.productCareKey)
+        let date: NSDate? = aDecoder.decodeObjectForKey(PropertyKey.dateKey)! as? NSDate
         
         // Must call designated initializer.
-        self.init(purchaseCost: purchaseCost, saleCost: saleCost, productCare: productCare)
+        self.init(purchaseCost: purchaseCost, saleCost: saleCost, productCare: productCare, date: date)
     }
     
     

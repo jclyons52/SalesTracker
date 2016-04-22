@@ -16,6 +16,7 @@
 		C34D39131CC4657500F451F2 /* TestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34D39121CC4657500F451F2 /* TestAppUITests.swift */; };
 		C38620A81CC8769B009486C3 /* SaleCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38620A71CC8769B009486C3 /* SaleCollection.swift */; };
 		C38620AA1CC88C9B009486C3 /* TestSaleCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38620A91CC88C9B009486C3 /* TestSaleCollection.swift */; };
+		C38620AE1CC8DA0A009486C3 /* StatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38620AD1CC8DA0A009486C3 /* StatsController.swift */; };
 		C3B272841CC86E610045C0AD /* Sale.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B272831CC86E610045C0AD /* Sale.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		C34D39141CC4657500F451F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C38620A71CC8769B009486C3 /* SaleCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleCollection.swift; sourceTree = "<group>"; };
 		C38620A91CC88C9B009486C3 /* TestSaleCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSaleCollection.swift; sourceTree = "<group>"; };
+		C38620AD1CC8DA0A009486C3 /* StatsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsController.swift; path = ../StatsController.swift; sourceTree = "<group>"; };
 		C3B272831CC86E610045C0AD /* Sale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sale.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 		C34D38F11CC4657500F451F2 /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				C38620AD1CC8DA0A009486C3 /* StatsController.swift */,
 				C34D38F21CC4657500F451F2 /* AppDelegate.swift */,
 				C34D38F41CC4657500F451F2 /* ViewController.swift */,
 				C3B272831CC86E610045C0AD /* Sale.swift */,
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C38620A81CC8769B009486C3 /* SaleCollection.swift in Sources */,
+				C38620AE1CC8DA0A009486C3 /* StatsController.swift in Sources */,
 				C34D38F51CC4657500F451F2 /* ViewController.swift in Sources */,
 				C3B272841CC86E610045C0AD /* Sale.swift in Sources */,
 				C34D38F31CC4657500F451F2 /* AppDelegate.swift in Sources */,

@@ -69,6 +69,38 @@ class TestSaleCollection: XCTestCase {
         XCTAssert(newCollection.sales.count == 2)
     }
     
+    // date range tests
+    
+    func testGetByDateRange() {
+        let saleCollection = getSaleCollection()
+        let secondsPerDay: NSTimeInterval = 24 * 60 * 60
+        let yesterday: NSDate? = NSDate(timeIntervalSinceNow: -secondsPerDay)
+        let sale = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true, date: yesterday)!
+        saleCollection.addSale(sale)
+        
+        let sales = saleCollection.fromYesterday()
+        
+        XCTAssert(sales.count == 1)
+    }
+    
+    func testGroupByDay() {
+        let saleCollection = getSaleCollection()
+        let secondsPerDay: NSTimeInterval = 24 * 60 * 60
+        let yesterday: NSDate? = NSDate(timeIntervalSinceNow: -secondsPerDay)
+        let twoDaysAgo: NSDate? = NSDate(timeIntervalSinceNow: -2 * secondsPerDay)
+        let sale = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true, date: yesterday)!
+        let sale2 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true, date: twoDaysAgo)!
+        saleCollection.addSale(sale)
+        saleCollection.addSale(sale2)
+        let today = saleCollection.forDay(NSDate())
+        let aDayAgo = saleCollection.forDay(yesterday!)
+        let daysAgo = saleCollection.forDay(twoDaysAgo!)
+        
+        XCTAssert(today.count == 2)
+        XCTAssert(aDayAgo.count == 1)
+        XCTAssert(daysAgo.count == 1)
+    }
+    
     func getSaleCollection() -> SaleCollection {
         let sale1 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: true)!
         let sale2 = Sale(purchaseCost: 11, saleCost: 25 ,productCare: false)!

@@ -15,20 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var saleCost: UITextField!
     @IBOutlet weak var commissionRate: UITextField!
     @IBOutlet weak var productCare: UISwitch!
-    @IBOutlet weak var totalSales: UILabel!
-    @IBOutlet weak var profit: UILabel!
-    @IBOutlet weak var productCareRatio: UILabel!
-    @IBOutlet weak var totalCommission: UILabel!
     @IBAction func save(sender: AnyObject) {
         addSale()
-        
-        profit.text = String(saleCollection.totalProfit)
-        totalSales.text = String(saleCollection.totalSales)
-
-        productCareRatio.text = String(saleCollection.productCareRatio)
-        let commission = commissionRate.text!.isEmpty ? 0 : Int(commissionRate.text!)!
-        totalCommission.text =  String(saleCollection.commission(commission))
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +30,19 @@ class ViewController: UIViewController {
     
     func addSale() {
         let salesTally = Double(saleCost.text!)
+        
         let storeCostTally = Double(storeCost.text!)
+        
         let productCareTally = productCare.on
+        
         let sale = Sale(purchaseCost: storeCostTally!, saleCost: salesTally!, productCare: productCareTally)!
+        
         self.saleCollection.addSale(sale)
         
+        saleCollection.saveSales()
+        
         saleCost.text = nil
+        
         storeCost.text = nil
     }
 

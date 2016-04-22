@@ -66,4 +66,19 @@ class SaleCollection {
         self.sales = []
         return false
     }
+    // date selection
+    func fromYesterday() -> [Sale] {
+        let secondsPerDay: NSTimeInterval = 24 * 60 * 60
+        let yesterday: NSDate? = NSDate(timeIntervalSinceNow: -secondsPerDay)
+        return self.forDay(yesterday!)
+    }
+    
+    func forDay(date: NSDate) -> [Sale] {
+        let calendar = NSCalendar.currentCalendar()
+        return self.sales.filter({
+            let result = calendar.compareDate($0.date, toDate: date, toUnitGranularity: NSCalendarUnit.Day)
+            return (result == NSComparisonResult.OrderedSame)
+        })
+
+    }
 }
